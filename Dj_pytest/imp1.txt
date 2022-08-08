@@ -1,0 +1,6 @@
+Django model testing.
+
+    Test Organisation.
+    Model Testing.
+    Package: Coverage (What to test)
+    Packege: Model_bakery (create fixtures for testing.)   

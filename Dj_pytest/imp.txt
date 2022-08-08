@@ -1,0 +1,77 @@
+pytest using Django
+
+
+Python testing frame works
+
+1-Robot
+2-PyTest
+3-UnitTest
+4-DocTest
+5-Nose2
+6-Testify
+
+PyTest is the most widely used in the ython community
+and the next is the UnitTest
+
+Pytest is opensource, works with built-in Unittests, Easy to start with and simple syntax
+Large community support, is highly extensible uding pluggins, Support Fixtures.
+pytest is far more advanced because of its convenience. and more over it is Cmpatible with Unittests.
+
+needed things for learning this tutorial.
+Python interpreter
+code editor
+
+Contents
+start a new Django project
+test folder structures
+Installing pytest
+pytest test discovery
+creating our first tests
+running test with Pytest
+    understsnding the Testing output
+    Report options
+    specify tests to run
+    Using pytest Mark
+        Addign metadata to tests.
+
+to install pytest
+
+pip install pytest
+
+pip install pytest
+
+1) create a folder tests in the root directory
+    create a file called test_ex1.pytest
+        inside the file write the test cases you want to test the django application.
+
+2) create pytest.ini in the django_root directory
+        in the pytest.ini file write down the following lines of code so that tha django.settings will accept the pytest
+            [pytest]
+            DJANGO_SETTINGS_MODULE = core.settings
+
+            python_files =  test_*.py 
+
+3) To run the tests
+
+    come to the termainal
+        and locate the path to the tests folder we have already created.
+             then type the following command pytest test_ex1.py.
+                 (test_ex1.py is the file we have already created in the tests folder, to run the django-testing codes.)     
+
+
+
+4) platform win32 -- Python 3.10.5, pytest-7.1.2, pluggy-1.0.0
+rootdir: C:\Users\SCLPT 047\Desktop\Training\Clients\chinmay\Dj_pytest\tests
+collected 2 items
+
+test_ex1.py ..
+
+these two dots indicate that two test has been sucessfully verified. 
+for running individual tests
+
+test_1ex1.py::test_example
+
+        this test_example is a test function inside the test_ex1.py
+
+        mock is actually adding meta data to a test.
+        
