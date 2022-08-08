@@ -1,0 +1,5 @@
+create a seperate folder called tests in the root folder
+    inside the tests folder create a folder called __init__.py and models.py
+    
+
+pip install coverage

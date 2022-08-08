@@ -1,0 +1,36 @@
+pip install coverage
+
+for running the tests
+
+    coverage run manage.py test
+
+    coverage report
+
+    if venv is inside the root folder it will take consideration of the files inside the venv also. inorder to 
+    omit those files and folders we have to use the command.
+
+    coverage run --omit='*/venv/* manage.py test
+
+
+
+*** Runnign tests ***
+
+python manage.py test
+
+* run the specified module *
+python manage.py test tests
+
+* to runt the specified module *
+python manage.py test tests.model
+
+* to run the specified class
+python manage.py test tests.model.TestAppModels
+
+* to run the specified method
+python manage.py test tests.model.TestAppModels.test_model_str
+
+to install model-bakery
+
+pip install model-bakery
+
+    
