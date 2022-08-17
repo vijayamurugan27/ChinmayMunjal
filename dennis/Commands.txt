@@ -1,0 +1,149 @@
+settings.py
+
+        INSTALLED_APPS = [
+            'rest_framework',
+        ]
+
+create a new folder called api
+
+inside the api folder create a file called 
+        __init__.py
+        views.py
+        urls.py
+
+So that the folder structure should look like this
+
+        api
+            __init__
+            views.py
+            urls.py
+
+in the views.py file enter the following code.
+
+        from rest_framework.response import Response
+        from rest_framework.decorators import api_view
+
+        @api_view
+        def getData():
+            person = {'name': 'raju', 'age':28}
+            return Response(person)
+
+in the urls.py file (api-folder)
+
+        from django.urls import path
+        from . import views
+
+        urlpatterns = [
+            path('', views.getData),            
+        ]
+
+in the urls.py file (main_folder)
+
+        from django.contrib import admin
+        from django.urls import path, include
+
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('', include('api.urls')),
+        ]
+
+
+Now if you run the code we can see that it displays the data in the browser.
+
+
+Then create app callled base and then add it to the settings file.
+
+        INSTALLED_APPS = [
+                'rest_framework',
+                'base',
+        ]
+
+in the models type the code.
+
+        from django.db import models
+
+
+        class Item(models.Model):
+            name = models.CharField(max_length=150)
+            created = models.DateTimeField(auto_now_add=True)
+            def __str__(self):
+                return self.name
+
+
+Now go to the Command prompt and type the following Command
+
+python manage.py shell
+
+from base.models import Item
+
+Item.objects.create(name = 'item-1')
+Item.objects.create(name = 'item-2')
+Item.objects.create(name = 'item-3')
+Item.objects.create(name = 'item-4')
+Item.objects.create(name = 'item-5')
+Item.objects.create(name = 'item-6')
+
+item = Item.objects.all()
+
+print(item)
+
+
+
+
+Now create a file called serializers.py
+
+        from rest_framework import serializers
+        from base.models import Item
+
+        class ItemSerialiser(serializers.ModelSerializer):
+            class Meta:
+                model = Item
+                fields = '__all__'
+        
+
+in the views.py (in the api-folder)
+
+
+        from rest_framework.response import Response
+        from rest_framework.decorators import api_view
+
+        from base.models import Item
+        from .serializers import ItemSerialiser
+
+
+
+        @api_view(['GET'])          # we can give post, put, delete
+        def getData(request):
+            # person = {'name': 'raju', 'age':28}
+            items = Item.objects.all()
+            serializer = ItemSerialiser(items, many = True)
+            # return Response(person)
+            return Response(serializer.data)
+
+        @api_view(['POST'])
+        def addItem(request):
+            serializer = ItemSerialiser(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+
+
+in the urls.py ( in the api-folder)
+        from django.urls import path
+
+        from . import views
+
+        urlpatterns = [
+            path('', views.getData),
+            path('addItem/', views.addItem),
+        ]
+
+
+
+
+
+
+
+
+
+
