@@ -1,0 +1,72 @@
+django-admin startproject dennis
+
+pip install djangorestframework
+pip install markdown       # Markdown support for the browsable API.
+pip install django-filter
+
+pip freeze > requirements.txt
+
+settings.py
+
+        INSTALLED_APPS = [
+            'rest_framework',
+        ]
+
+in the project urls.py
+
+        urlpatterns = [
+            ...
+            path('api-auth/', include('rest_framework.urls'))
+        ]
+
+
+in the settings.py file
+
+        REST_FRAMEWORK = {
+            # Use Django's standard `django.contrib.auth` permissions,
+            # or allow read-only access for unauthenticated users.
+            'DEFAULT_PERMISSION_CLASSES': [
+                'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+            ]
+        }
+
+create a file called serializers.py
+
+
+        from rest_framework import serializers
+        from django.contrib.auth.models import User
+
+        class UserSerializer(serializers.HyperlinkedModelSerializer):
+            class Meta:
+                model = User
+                fields = ['url', 'username', 'email', 'is_staff']
+
+in the views.py file
+
+        from rest_framework import viewsets
+        from django.contrib.auth.models import User
+
+
+        from .serializers import UserSerializer
+        class UserViewSet(viewsets.ModelViewSet):
+            queryset = User.objects.all()
+            serializer_class = UserSerializer
+    
+in the urls.py
+
+        
+        from django.contrib import admin
+        from django.urls import path, include
+
+        from rest_framework import routers
+        from .views import UserViewSet
+
+        router = routers.DefaultRouter()
+        router.register(r'users', UserViewSet)
+
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('', include(router.urls)),
+            path('api-auth/', include('rest_framework.urls'), name = 'rest_framework'),
+
+        ]
