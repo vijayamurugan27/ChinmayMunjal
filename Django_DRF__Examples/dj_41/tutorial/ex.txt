@@ -1,0 +1,18 @@
+Request Objects
+
+request.POST  # Only handles form data.  Only works for 'POST' method.
+request.data  # Handles arbitrary data.  Works for 'POST', 'PUT' and 'PATCH' methods.
+
+Response Objects
+
+return Response(data) # Renders to content type as requested by the client.
+
+API views
+
+    @api_view decorator for working with Function based views. FBS
+    APIView class for working with class based views. CBS
+
+
+
+
+
