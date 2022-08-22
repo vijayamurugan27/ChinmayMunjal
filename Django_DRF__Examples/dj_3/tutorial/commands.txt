@@ -1,0 +1,10 @@
+pip install django
+pip install djangorestframework
+pip install Pygments
+
+
+for creating a file.txt we have to type
+
+type nul > commands.txt
+
+pip install httpie
